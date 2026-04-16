@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astro Grid — Photo Gallery</title>
+  <title>Valentina Pinto PH — Galería</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
@@ -17,7 +17,6 @@
       --muted: #8a8880;
       --border: rgba(26,25,22,0.1);
       --border-mid: rgba(26,25,22,0.18);
-      --accent: #1a1916;
     }
 
     html { scroll-behavior: smooth; }
@@ -31,248 +30,212 @@
 
     /* ── NAV ── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
       background: var(--surface);
       border-bottom: 0.5px solid var(--border);
-      height: 60px;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+      height: 60px; padding: 0 2rem;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem;
     }
-
     .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      display: flex; align-items: center; gap: 9px;
+      text-decoration: none; color: var(--text);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
       white-space: nowrap;
     }
     .nav-logo svg { width: 20px; height: 20px; flex-shrink: 0; }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-    }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
     .nav-links a {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.02em;
+      font-size: 13px; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.02em;
       transition: color 0.15s;
     }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--text); }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
     .nav-links a.active { font-weight: 500; }
-
-    .nav-social {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+    .nav-social { display: flex; align-items: center; gap: 18px; }
     .nav-social a {
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: color 0.18s;
+      color: var(--muted); display: flex;
+      align-items: center; justify-content: center;
+      text-decoration: none; transition: color 0.18s;
     }
     .nav-social a:hover { color: var(--text); }
     .nav-social svg { width: 18px; height: 18px; display: block; }
 
-    /* ── HERO ── */
-    .hero {
-      padding: 5rem 2rem 3rem;
-      text-align: center;
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
     }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ── */
+    .mobile-menu {
+      display: none; position: fixed;
+      inset: 60px 0 0 0; background: var(--surface);
+      z-index: 99; flex-direction: column;
+      padding: 2rem 1.5rem;
+      border-top: 0.5px solid var(--border);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a.mobile-link {
+      font-size: 26px; font-family: 'DM Serif Display', serif;
+      font-weight: 400; color: var(--text); text-decoration: none;
+      padding: 1rem 0; border-bottom: 0.5px solid var(--border);
+    }
+    .mobile-social {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .mobile-social a {
+      font-size: 13px; font-family: 'DM Sans', sans-serif;
+      color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.15s;
+    }
+    .mobile-social a:hover { color: var(--text); }
+    .mobile-social svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── HERO ── */
+    .hero { padding: 5rem 2rem 3rem; text-align: center; }
     .hero-eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
+      font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
     }
     .hero h1 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 1.25rem;
+      font-weight: 400; line-height: 1.1;
+      color: var(--text); margin-bottom: 1.25rem;
     }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--muted);
-    }
+    .hero h1 em { font-style: italic; color: var(--muted); }
     .hero p {
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 400px;
-      margin: 0 auto;
-      line-height: 1.7;
+      font-size: 14px; color: var(--muted);
+      max-width: 400px; margin: 0 auto; line-height: 1.7;
     }
 
     /* ── FILTER BAR ── */
     .filter-bar {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding: 2rem 2rem 2.5rem;
+      display: flex; justify-content: center;
+      gap: 8px; flex-wrap: wrap; padding: 2rem 2rem 2.5rem;
     }
     .filter-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 7px 18px;
-      border: 0.5px solid var(--border-mid);
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 7px 18px; border: 0.5px solid var(--border-mid);
+      border-radius: 999px; background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.15s;
     }
-    .filter-btn:hover {
-      border-color: var(--text);
-      color: var(--text);
-    }
-    .filter-btn.active {
-      background: var(--text);
-      border-color: var(--text);
-      color: var(--bg);
-    }
+    .filter-btn:hover { border-color: var(--text); color: var(--text); }
+    .filter-btn.active { background: var(--text); border-color: var(--text); color: var(--bg); }
 
     /* ── GALLERY ── */
-    .gallery {
-      columns: 4 200px;
-      column-gap: 10px;
-      padding: 0 1.5rem 4rem;
-    }
+    .gallery { columns: 4 200px; column-gap: 10px; padding: 0 1.5rem 4rem; }
     .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 10px;
-      overflow: hidden;
-      border-radius: 6px;
-      position: relative;
-      cursor: pointer;
-      background: #e8e5de;
+      break-inside: avoid; margin-bottom: 10px;
+      overflow: hidden; border-radius: 6px;
+      position: relative; cursor: pointer; background: #e8e5de;
     }
-    .gallery-item img {
-      width: 100%;
-      display: block;
-      transition: transform 0.4s ease;
-    }
+    .gallery-item img { width: 100%; display: block; transition: transform 0.4s ease; }
     .gallery-item .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0);
-      display: flex;
-      align-items: flex-end;
-      padding: 12px;
-      transition: background 0.3s;
+      position: absolute; inset: 0; background: rgba(0,0,0,0);
+      display: flex; align-items: flex-end; padding: 12px; transition: background 0.3s;
     }
     .gallery-item:hover .overlay { background: rgba(0,0,0,0.2); }
     .gallery-item:hover img { transform: scale(1.04); }
     .photo-credit {
-      font-size: 10px;
-      color: rgba(255,255,255,0);
-      letter-spacing: 0.04em;
-      transition: color 0.3s;
+      font-size: 10px; color: rgba(255,255,255,0);
+      letter-spacing: 0.04em; transition: color 0.3s;
     }
     .gallery-item:hover .photo-credit { color: rgba(255,255,255,0.85); }
 
     /* ── SECTIONS ── */
     .section {
-      padding: 5rem 2rem;
-      border-top: 0.5px solid var(--border);
-      max-width: 700px;
-      margin: 0 auto;
+      padding: 5rem 2rem; border-top: 0.5px solid var(--border);
+      max-width: 700px; margin: 0 auto;
     }
     .section-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
+      font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem;
     }
     .section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      font-weight: 400;
-      margin-bottom: 1.25rem;
-      line-height: 1.2;
+      font-family: 'DM Serif Display', serif; font-size: 2rem;
+      font-weight: 400; margin-bottom: 1.25rem; line-height: 1.2;
     }
-    .section p {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
+    .section p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
 
-    /* ── CONTACT ── */
-    .contact-links {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    /* ── CONTACTO ── */
+    .contact-links { margin-top: 2rem; display: flex; flex-direction: column; gap: 12px; }
     .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
-      border: 0.5px solid var(--border-mid);
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 13px;
-      transition: border-color 0.15s, background 0.15s;
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border: 0.5px solid var(--border-mid);
+      border-radius: 8px; text-decoration: none; color: var(--text);
+      font-size: 13px; transition: border-color 0.15s, background 0.15s;
       background: var(--surface);
     }
-    .contact-link:hover {
-      border-color: var(--text);
-      background: var(--bg);
-    }
+    .contact-link:hover { border-color: var(--text); background: var(--bg); }
     .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); }
     .contact-link span { color: var(--muted); font-size: 12px; margin-left: auto; }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 0.5px solid var(--border);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+      border-top: 0.5px solid var(--border); padding: 2rem;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
     }
     footer p { font-size: 12px; color: var(--muted); }
-    .footer-social {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .footer-social { display: flex; align-items: center; gap: 16px; }
     .footer-social a {
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      transition: color 0.15s;
+      color: var(--muted); display: flex; align-items: center;
+      text-decoration: none; transition: color 0.15s;
     }
     .footer-social a:hover { color: var(--text); }
     .footer-social svg { width: 16px; height: 16px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links, .nav-social { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero { padding: 3rem 1.25rem 2rem; }
+      .hero h1 { font-size: 2.4rem; }
+
+      .filter-bar {
+        padding: 1.25rem 1.25rem 1.5rem; gap: 6px;
+        justify-content: flex-start; flex-wrap: nowrap;
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .filter-btn { flex-shrink: 0; padding: 8px 16px; font-size: 11px; }
+
+      .gallery { columns: 2; column-gap: 8px; padding: 0 1rem 3rem; }
+      .gallery-item { margin-bottom: 8px; border-radius: 4px; }
+      .photo-credit { color: rgba(255,255,255,0.75) !important; font-size: 9px; }
+
+      .section { padding: 3rem 1.25rem; }
+      .section h2 { font-size: 1.6rem; }
+
+      .contact-link { padding: 12px 14px; font-size: 12px; }
+      .contact-link span { display: none; }
+
+      footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; }
+    }
+
+    @media (min-width: 641px) and (max-width: 900px) {
+      .nav-links { gap: 1.5rem; }
+      .gallery { columns: 3 160px; }
+    }
   </style>
 </head>
 <body>
@@ -281,21 +244,19 @@
   <nav>
     <a class="nav-logo" href="#">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="12" cy="12" r="9"/>
-        <circle cx="12" cy="12" r="3"/>
+        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
         <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
       </svg>
       Valentina Pinto PH
     </a>
 
     <div class="nav-links">
-      <a href="#gallery" class="active">Gallery</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#galeria" class="active">Galería</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
     </div>
 
     <div class="nav-social">
-      <!-- Instagram -->
       <a href="https://instagram.com/valentinapintoph" target="_blank" title="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -303,52 +264,94 @@
           <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
         </svg>
       </a>
-      <!-- WhatsApp -->
       <a href="https://wa.me/TUNUMERO" target="_blank" title="WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
         </svg>
       </a>
-      <!-- Unsplash -->
-      <a href="https://unsplash.com/valentinapintoph" target="_blank" title="Unsplash">
+      <a href="https://unsplash.com/@valentinapintoph" target="_blank" title="Unsplash">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
         </svg>
       </a>
     </div>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
+  <!-- ══ MOBILE DRAWER ══ -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a class="mobile-link" href="#galeria" onclick="closeMobileMenu()">Galería</a>
+    <a class="mobile-link" href="#sobre-mi" onclick="closeMobileMenu()">Sobre mí</a>
+    <a class="mobile-link" href="#contacto" onclick="closeMobileMenu()">Contacto</a>
+    <div class="mobile-social">
+      <a href="https://instagram.com/valentinapintoph" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+      <a href="https://wa.me/TUNUMERO" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        WhatsApp
+      </a>
+      <a href="https://unsplash.com/@valentinapintoph" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
+        </svg>
+        Unsplash
+      </a>
+    </div>
+  </div>
+
   <!-- ══ HERO ══ -->
-  <section class="hero" id="gallery">
+  <section class="hero" id="galeria">
     <p class="hero-eyebrow">Portfolio</p>
     <h1>Valentina <em>Pinto</em> PH</h1>
     <p>Una colección curada de fotografía de naturaleza, viajes y retrato desde Unsplash.</p>
   </section>
 
-  <!-- ══ FILTER BAR ══ -->
+  <!-- ══ FILTROS ══ -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
-    <button class="filter-btn" onclick="filterGallery('nature', this)">Nature</button>
-    <button class="filter-btn" onclick="filterGallery('portrait', this)">Portrait</button>
-    <button class="filter-btn" onclick="filterGallery('travel', this)">Travel</button>
-    <button class="filter-btn" onclick="filterGallery('abstract', this)">Abstract</button>
+    <button class="filter-btn active" onclick="filterGallery('all', this)">Todas</button>
+    <button class="filter-btn" onclick="filterGallery('nature', this)">Naturaleza</button>
+    <button class="filter-btn" onclick="filterGallery('portrait', this)">Retratos</button>
+    <button class="filter-btn" onclick="filterGallery('travel', this)">Viajes</button>
+    <button class="filter-btn" onclick="filterGallery('abstract', this)">Abstracto</button>
   </div>
 
-  <!-- ══ GALLERY ══ -->
+  <!-- ══ GALERÍA ══ -->
   <div class="gallery" id="gallery-grid"></div>
 
-  <!-- ══ ABOUT ══ -->
-  <section class="section" id="about">
-    <p class="section-label">About</p>
+  <!-- ══ SOBRE MÍ ══ -->
+  <section class="section" id="sobre-mi">
+    <p class="section-label">Sobre mí</p>
     <h2>Fotografía que<br>cuenta algo</h2>
-    <p>Astro Grid es una galería personal de fotografía construida con Astro. Cada imagen fue seleccionada por su composición, luz y el momento que captura.</p>
-    <p>Las fotos provienen de fotógrafos de Unsplash a quienes les damos crédito por su trabajo.</p>
+    <p>Capturar momentos va mucho más allá de hacer una foto. Es detener el tiempo en instantes que, de otra manera, pasarían desapercibidos.
+
+        Soy fotógrafa porque me obsesiona lo real: las miradas que no se pueden fingir, los gestos espontáneos, la belleza en lo simple. No busco perfección, busco verdad. Cada sesión es una oportunidad para contar una historia única, sin poses forzadas ni fórmulas repetidas.
+
+        Trabajo desde la conexión. Me importa que te sientas cómodo, que seas vos, porque ahí es donde aparecen las imágenes que realmente importan. Esas que con el tiempo no solo se ven, sino que se sienten.
+
+        Ya sea un retrato, un proyecto personal o un momento importante en tu vida, mi objetivo es que cuando vuelvas a esas fotos, algo te pase. Que te transporten, que te muevan, que te hagan recordar exactamente cómo se sentía estar ahí.
+
+        Porque al final, de eso se trata: no de fotos lindas, sino de recuerdos vivos.
+
+        Si sentís que esto conecta con vos, es por algo.
+        Podés escribirme y empezamos a crear algo que realmente valga la pena guardar.</p>
   </section>
 
-  <!-- ══ CONTACT ══ -->
-  <section class="section" id="contact">
-    <p class="section-label">Contact</p>
+  <!-- ══ CONTACTO ══ -->
+  <section class="section" id="contacto">
+    <p class="section-label">Contacto</p>
     <h2>Hablemos</h2>
     <p>Podés escribirme por Instagram o WhatsApp, o ver más trabajo en Unsplash.</p>
     <div class="contact-links">
@@ -381,9 +384,9 @@
 
   <!-- ══ FOOTER ══ -->
   <footer>
-    <p>© 2025 Astro Grid · Fotos vía <a href="https://unsplash.com" style="color: var(--muted)">Unsplash</a></p>
+    <p>© 2025 Valentina Pinto PH · Fotos vía <a href="https://unsplash.com" style="color: var(--muted)">Unsplash</a></p>
     <div class="footer-social">
-      <a href="https://instagram.com" target="_blank" title="Instagram">
+      <a href="https://instagram.com/valentinapintoph" target="_blank" title="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <rect x="2" y="2" width="20" height="20" rx="5"/>
           <circle cx="12" cy="12" r="5"/>
@@ -396,7 +399,7 @@
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
         </svg>
       </a>
-      <a href="https://unsplash.com" target="_blank" title="Unsplash">
+      <a href="https://unsplash.com/@valentinapintoph" target="_blank" title="Unsplash">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
         </svg>
@@ -458,9 +461,7 @@
         div.className = 'gallery-item';
         div.innerHTML = `
           <img src="${BASE}${p.file}" alt="${p.author}" loading="lazy" />
-          <div class="overlay">
-            <span class="photo-credit">${p.author}</span>
-          </div>`;
+          <div class="overlay"><span class="photo-credit">${p.author}</span></div>`;
         grid.appendChild(div);
       });
     }
@@ -472,6 +473,19 @@
     }
 
     renderGallery('all');
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobileMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
   </script>
 </body>
 </html>
