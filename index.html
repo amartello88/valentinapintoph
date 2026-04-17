@@ -236,6 +236,48 @@
       .nav-links { gap: 1.5rem; }
       .gallery { columns: 3 160px; }
     }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(10,9,8,0.93);
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      position: relative; max-width: 90vw; max-height: 90vh;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .lightbox-inner img {
+      max-width: 90vw; max-height: 82vh;
+      object-fit: contain; border-radius: 4px; display: block;
+      animation: lb-in 0.18s ease;
+    }
+    @keyframes lb-in {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .lightbox-caption { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+    .lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.5rem;
+      background: none; border: none; color: rgba(255,255,255,0.55);
+      cursor: pointer; padding: 4px; line-height: 1; transition: color 0.15s;
+    }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-close svg { width: 22px; height: 22px; display: block; }
+    .lightbox-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: rgba(255,255,255,0.45);
+      cursor: pointer; padding: 14px; transition: color 0.15s;
+    }
+    .lightbox-nav:hover { color: #fff; }
+    .lightbox-nav svg { width: 28px; height: 28px; display: block; }
+    .lightbox-prev { left: 0.5rem; }
+    .lightbox-next { right: 0.5rem; }
+    @media (max-width: 640px) {
+      .lightbox-nav { display: none; }
+      .lightbox-inner img { max-height: 75vh; }
+    }
   </style>
 </head>
 <body>
@@ -318,7 +360,7 @@
     <p class="hero-eyebrow">Portfolio</p>
     <h1>Valentina <em>Pinto</em> PH</h1>
     <p>Fotografía de retrato, viajes y naturaleza con una mirada sensible y auténtica.
-Creemos imágenes que cuenten tu historia.</p>
+Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
   </section>
 
   <!-- ══ FILTROS ══ -->
@@ -379,6 +421,23 @@ Creemos imágenes que cuenten tu historia.</p>
     </div>
   </section>
 
+
+  <!-- ══ LIGHTBOX ══ -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="" />
+      <span class="lightbox-caption" id="lb-caption"></span>
+    </div>
+    <button class="lightbox-close" id="lb-close" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
   <!-- ══ FOOTER ══ -->
   <footer>
     <p>© 2025 Valentina Pinto PH · Fotos vía <a href="https://unsplash.com" style="color: var(--muted)">Unsplash</a></p>
@@ -440,7 +499,7 @@ Creemos imágenes que cuenten tu historia.</p>
       { url: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=80", author: "Andrea Leopardi", tag: "travel" },
       { url: "https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=600&q=80", author: "Sime Basioli", tag: "travel" },
 
-           // ── ARTE / ABSTRACTO ──
+      // ── ARTE / ABSTRACTO ──
       { url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1501472312651-726afe119ff1?w=600&q=80", author: "Gül Işık", tag: "abstract" },
@@ -456,12 +515,13 @@ Creemos imágenes que cuenten tu historia.</p>
       const grid = document.getElementById('gallery-grid');
       grid.innerHTML = '';
       const items = filter === 'all' ? photos : photos.filter(p => p.tag === filter);
-      items.forEach(p => {
+      items.forEach((p, i) => {
         const div = document.createElement('div');
         div.className = 'gallery-item';
         div.innerHTML = `
           <img src="${p.url}" alt="${p.author}" loading="lazy" />
           <div class="overlay"><span class="photo-credit">${p.author}</span></div>`;
+        div.addEventListener('click', () => openLightbox(i));
         grid.appendChild(div);
       });
     }
@@ -486,6 +546,72 @@ Creemos imágenes que cuenten tu historia.</p>
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
     }
+
+    // ── LIGHTBOX ──
+    let lbItems = [];
+    let lbIndex = 0;
+
+    function openLightbox(index) {
+      const grid = document.getElementById('gallery-grid');
+      lbItems = Array.from(grid.querySelectorAll('.gallery-item')).map(el => ({
+        url: el.querySelector('img').src,
+        author: el.querySelector('.photo-credit').textContent
+      }));
+      lbIndex = index;
+      showLbSlide();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLbSlide() {
+      const img = document.getElementById('lb-img');
+      img.style.animation = 'none';
+      img.offsetHeight;
+      img.style.animation = '';
+      img.src = lbItems[lbIndex].url;
+      img.alt = lbItems[lbIndex].author;
+      document.getElementById('lb-caption').textContent = lbItems[lbIndex].author;
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+    document.getElementById('lb-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      lbIndex = (lbIndex - 1 + lbItems.length) % lbItems.length;
+      showLbSlide();
+    });
+    document.getElementById('lb-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      lbIndex = (lbIndex + 1) % lbItems.length;
+      showLbSlide();
+    });
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + lbItems.length) % lbItems.length; showLbSlide(); }
+      if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbItems.length; showLbSlide(); }
+    });
+
+    let tsX = 0;
+    document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.touches[0].clientX; });
+    document.getElementById('lightbox').addEventListener('touchend', e => {
+      const diff = tsX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        lbIndex = diff > 0
+          ? (lbIndex + 1) % lbItems.length
+          : (lbIndex - 1 + lbItems.length) % lbItems.length;
+        showLbSlide();
+      }
+    });
+
   </script>
 </body>
 </html>
