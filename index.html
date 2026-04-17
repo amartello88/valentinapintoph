@@ -243,9 +243,10 @@
   <!-- ══ NAV ══ -->
   <nav>
     <a class="nav-logo" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
-        <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+      <!-- Ícono cámara fotográfica -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
       </svg>
       Valentina Pinto PH
     </a>
@@ -326,7 +327,7 @@ Creemos imágenes que cuenten tu historia.</p>
     <button class="filter-btn" onclick="filterGallery('nature', this)">Naturaleza</button>
     <button class="filter-btn" onclick="filterGallery('portrait', this)">Retratos</button>
     <button class="filter-btn" onclick="filterGallery('travel', this)">Viajes</button>
-    <button class="filter-btn" onclick="filterGallery('abstract', this)">Abstracto</button>
+    <button class="filter-btn" onclick="filterGallery('abstract', this)">Arte / Abstracto</button>
   </div>
 
   <!-- ══ GALERÍA ══ -->
@@ -336,18 +337,12 @@ Creemos imágenes que cuenten tu historia.</p>
   <section class="section" id="sobre-mi">
     <p class="section-label">Sobre mí</p>
     <h2>Fotografía que<br>cuenta algo</h2>
-    <p>Capturar momentos va mucho más allá de hacer una foto. Es detener el tiempo en instantes que, de otra manera, pasarían desapercibidos.
-
-        Soy fotógrafa porque me obsesiona lo real: las miradas que no se pueden fingir, los gestos espontáneos, la belleza en lo simple. No busco perfección, busco verdad. Cada sesión es una oportunidad para contar una historia única, sin poses forzadas ni fórmulas repetidas.
-
-        Trabajo desde la conexión. Me importa que te sientas cómodo, que seas vos, porque ahí es donde aparecen las imágenes que realmente importan. Esas que con el tiempo no solo se ven, sino que se sienten.
-
-        Ya sea un retrato, un proyecto personal o un momento importante en tu vida, mi objetivo es que cuando vuelvas a esas fotos, algo te pase. Que te transporten, que te muevan, que te hagan recordar exactamente cómo se sentía estar ahí.
-
-        Porque al final, de eso se trata: no de fotos lindas, sino de recuerdos vivos.
-
-        Si sentís que esto conecta con vos, es por algo.
-        Podés escribirme y empezamos a crear algo que realmente valga la pena guardar.</p>
+    <p>Capturar momentos va mucho más allá de hacer una foto. Es detener el tiempo en instantes que, de otra manera, pasarían desapercibidos.</p>
+    <p>Soy fotógrafa porque me obsesiona lo real: las miradas que no se pueden fingir, los gestos espontáneos, la belleza en lo simple. No busco perfección, busco verdad. Cada sesión es una oportunidad para contar una historia única, sin poses forzadas ni fórmulas repetidas.</p>
+    <p>Trabajo desde la conexión. Me importa que te sientas cómodo, que seas vos, porque ahí es donde aparecen las imágenes que realmente importan. Esas que con el tiempo no solo se ven, sino que se sienten.</p>
+    <p>Ya sea un retrato, un proyecto personal o un momento importante en tu vida, mi objetivo es que cuando vuelvas a esas fotos, algo te pase. Que te transporten, que te muevan, que te hagan recordar exactamente cómo se sentía estar ahí.</p>
+    <p>Porque al final, de eso se trata: no de fotos lindas, sino de recuerdos vivos.</p>
+    <p>Si sentís que esto conecta con vos, es por algo. Podés escribirme y empezamos a crear algo que realmente valga la pena guardar.</p>
   </section>
 
   <!-- ══ CONTACTO ══ -->
@@ -410,48 +405,51 @@ Creemos imágenes que cuenten tu historia.</p>
   </footer>
 
   <script>
-    const BASE = "https://astro-photo-grid.netlify.app/_astro/";
+    // Fotos con IDs de Unsplash — se cargan directo desde source.unsplash.com
+    // Cada categoría tiene fotos curadas para ese género
     const photos = [
-      { file: "aaron-burden-rFjyEaAFbfA-unsplash.DiYQfHzo_Z1rur3E.webp", author: "Aaron Burden", tag: "nature" },
-      { file: "albert-salim-aw8bNTZZhUM-unsplash.BiWrSOt4_kc3bt.webp", author: "Albert Salim", tag: "travel" },
-      { file: "albert-salim-sw8-TNH2MFo-unsplash.DLywecMJ_HyAyR.webp", author: "Albert Salim", tag: "travel" },
-      { file: "alex-siale-qH36EgNjPJY-unsplash.cqJSYMNM_ZLWkEp.webp", author: "Alex Siale", tag: "portrait" },
-      { file: "alexandra-1aCxlDogCCM-unsplash.ITaoI42K_ZczIs7.webp", author: "Alexandra", tag: "portrait" },
-      { file: "ashe-walker-AMvnXP98HuQ-unsplash.CyOsnugZ_1bcOdr.webp", author: "Ashe Walker", tag: "abstract" },
-      { file: "buddy-an-MYXu9Zj1FXc-unsplash.BYhwLQJJ_ZFPb6r.webp", author: "Buddy An", tag: "nature" },
-      { file: "cheng-lin-SWmjxFob2SQ-unsplash.IC6zQHZz_2kRyb4.webp", author: "Cheng Lin", tag: "travel" },
-      { file: "coco-tafoya-52HbcHJnb5E-unsplash.Drb35XwA_Z1sLoVG.webp", author: "Coco Tafoya", tag: "portrait" },
-      { file: "daniil-silantev--cY_x-urW6s-unsplash.BY2KrK4-_UrrIW.webp", author: "Daniil Silantev", tag: "nature" },
-      { file: "david-clode-4RwSPLee_h4-unsplash.BLGvIDY-_ZYd31k.webp", author: "David Clode", tag: "nature" },
-      { file: "david-clode-zOBl2GTdMmc-unsplash.CY9UUn9j_Z1KXMpD.webp", author: "David Clode", tag: "nature" },
-      { file: "dennis-yu-4FLmDMG6wQs-unsplash.TrJeFXox_11IFo3.webp", author: "Dennis Yu", tag: "travel" },
-      { file: "europeana-yYfvMR4-IwU-unsplash.B5qdcUVn_12nbd8.webp", author: "Europeana", tag: "abstract" },
-      { file: "fatih-berat-orer-oajlEpl_m_w-unsplash.OSxEdk9a_11ofbj.webp", author: "Fatih Berat Örer", tag: "portrait" },
-      { file: "filippo-e4cea4z7hMU-unsplash.DhHrc4XP_W7BYH.webp", author: "Filippo", tag: "travel" },
-      { file: "francis-nie-NIYfVmrMO74-unsplash.uPi457Iv_Z1IL0ju.webp", author: "Francis Nie", tag: "abstract" },
-      { file: "gustavo-zambelli--T_MrBiiJX8-unsplash.DS7mhSu9_TXB49.webp", author: "Gustavo Zambelli", tag: "travel" },
-      { file: "harrison-steen-cSjCDWJ2Bg0-unsplash.C3amHTOt_Z1jxpvw.webp", author: "Harrison Steen", tag: "portrait" },
-      { file: "hennie-stander-PMhfO33osFE-unsplash.C5Ce_-Vq_2h2XOE.webp", author: "Hennie Stander", tag: "nature" },
-      { file: "ingmar-Mk3AqH8hqGQ-unsplash.C3W7TKix_Z2Fnwk.webp", author: "Ingmar", tag: "nature" },
-      { file: "ingmar-Urr7MbStFL8-unsplash.Bxd31W5A_Z2bUMtD.webp", author: "Ingmar", tag: "abstract" },
-      { file: "james-lee-IljRc12rpYI-unsplash.CQMjiUQ7_Zy4KkS.webp", author: "James Lee", tag: "travel" },
-      { file: "jeremy-bishop-j06lbRyrXgw-unsplash.B0-3N0nE_Z11qBbD.webp", author: "Jeremy Bishop", tag: "nature" },
-      { file: "jerry-kavan-sGJomXn2Pu8-unsplash.CI2bZ0_t_dfCVx.webp", author: "Jerry Kavan", tag: "nature" },
-      { file: "jonas-degener-eR54mSiITFU-unsplash.DB20o9c__ZbRPcR.webp", author: "Jonas Degener", tag: "travel" },
-      { file: "karsten-winegeart-xxsQl8zTdps-unsplash.BJqH0nY__E1s68.webp", author: "Karsten Winegeart", tag: "portrait" },
-      { file: "katie-puzatova-odn2LxXCoI8-unsplash.BECeFHbO_1FJx8M.webp", author: "Katie Puzatova", tag: "portrait" },
-      { file: "kc-shum-blQUWx0Jx_c-unsplash.C1PBsumK_Z1PxgL8.webp", author: "KC Shum", tag: "travel" },
-      { file: "kevin-charit-KU9D4Sz6IDY-unsplash.B5Aq2Nwi_1EAWUE.webp", author: "Kevin Charit", tag: "nature" },
-      { file: "kevin-mueller-NdK8Ed-Qx3U-unsplash.D_ob96do_Z2nOu0I.webp", author: "Kevin Mueller", tag: "abstract" },
-      { file: "klara-kulikova-WS_7qiveZ2Y-unsplash.5RHzJ16y_11aUAW.webp", author: "Klara Kulikova", tag: "portrait" },
-      { file: "marek-piwnicki-mkTkFLFlBD8-unsplash.BPn4a04-_HhXbr.webp", author: "Marek Piwnicki", tag: "nature" },
-      { file: "matthew-stephenson-aucdU2787kM-unsplash.CL0KHc38_HFdI.webp", author: "Matthew Stephenson", tag: "travel" },
-      { file: "meina-yin-gmIhG320kGs-unsplash.BWyg10FE_xauQR.webp", author: "Meina Yin", tag: "portrait" },
-      { file: "omid-armin-QMlMWL4H9so-unsplash.BY6BbLOE_1DeEfR.webp", author: "Omid Armin", tag: "portrait" },
-      { file: "sagar-kulkarni-AqBs2LubTA0-unsplash.C8Y0NcXv_Z2oxiem.webp", author: "Sagar Kulkarni", tag: "abstract" },
-      { file: "slava-auchynnikau-3wnG56iHn2g-unsplash.DEkZyVP1_Z8advm.webp", author: "Slava Auchynnikau", tag: "travel" },
-      { file: "slava-auchynnikau-GHbwG9FfIOY-unsplash.9htpXK25_Z24PsIW.webp", author: "Slava Auchynnikau", tag: "nature" },
-      { file: "townsend-walton-G7ppFb-sXEE-unsplash.DgUj8E_d_LbsD7.webp", author: "Townsend Walton", tag: "nature" },
+      // ── NATURALEZA ──
+      { url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80", author: "sergkuzmin", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80", author: "Ales Krivec", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&q=80", author: "veeterzy", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80", author: "Lukasz Szmigiel", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&q=80", author: "Lucas Pezeta", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&q=80", author: "v2osk", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&q=80", author: "Sebastian Unrau", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=80", author: "Jeremy Bishop", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=600&q=80", author: "Martin Adams", tag: "nature" },
+
+      // ── RETRATOS ──
+      { url: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80", author: "Allef Vinicius", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80", author: "Atikh Bana", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80", author: "Tamara Bellis", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80", author: "Foto Sushi", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80", author: "Ivana Cajina", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80", author: "Moose Photos", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=600&q=80", author: "Stefan Stefancik", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80", author: "Leu Marius", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=600&q=80", author: "Elizeu Dias", tag: "portrait" },
+
+      // ── VIAJES ──
+      { url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80", author: "Simon Migaj", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=80", author: "Simon Migaj", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=600&q=80", author: "Tom Barrett", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=600&q=80", author: "Krists Luhaers", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=80", author: "Jakob Owens", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80", author: "Mesut Kaya", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=80", author: "Andrea Leopardi", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=600&q=80", author: "Sime Basioli", tag: "travel" },
+
+           // ── ARTE / ABSTRACTO ──
+      { url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1501472312651-726afe119ff1?w=600&q=80", author: "Gül Işık", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1496715976403-7e36dc43f17b?w=600&q=80", author: "Timur Garifov", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80", author: "Jean-Philippe Delberghe", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1552083375-1447ce886485?w=600&q=80", author: "Sven Mieke", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1605106702842-01a887a31122?w=600&q=80", author: "Jr Korpa", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1567359781514-3b964e2b04d6?w=600&q=80", author: "Scott Webb", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", author: "Birmingham Museums", tag: "abstract" },
     ];
 
     function renderGallery(filter) {
@@ -462,7 +460,7 @@ Creemos imágenes que cuenten tu historia.</p>
         const div = document.createElement('div');
         div.className = 'gallery-item';
         div.innerHTML = `
-          <img src="${BASE}${p.file}" alt="${p.author}" loading="lazy" />
+          <img src="${p.url}" alt="${p.author}" loading="lazy" />
           <div class="overlay"><span class="photo-credit">${p.author}</span></div>`;
         grid.appendChild(div);
       });
