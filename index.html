@@ -9,267 +9,143 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f8f6f1;
-      --surface: #ffffff;
-      --text: #1a1916;
-      --muted: #8a8880;
-      --border: rgba(26,25,22,0.1);
-      --border-mid: rgba(26,25,22,0.18);
+      --bg: #f8f6f1; --surface: #ffffff; --text: #1a1916;
+      --muted: #8a8880; --border: rgba(26,25,22,0.1); --border-mid: rgba(26,25,22,0.18);
+      --gap: 10px; --cols: 4;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: var(--surface);
-      border-bottom: 0.5px solid var(--border);
+      background: var(--surface); border-bottom: 0.5px solid var(--border);
       height: 60px; padding: 0 2rem;
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 1rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 9px;
-      text-decoration: none; color: var(--text);
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      white-space: nowrap;
+      display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
     }
     .nav-logo svg { width: 20px; height: 20px; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 2.5rem; }
-    .nav-links a {
-      font-size: 13px; color: var(--muted);
-      text-decoration: none; letter-spacing: 0.02em;
-      transition: color 0.15s;
-    }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.15s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
     .nav-links a.active { font-weight: 500; }
     .nav-social { display: flex; align-items: center; gap: 18px; }
-    .nav-social a {
-      color: var(--muted); display: flex;
-      align-items: center; justify-content: center;
-      text-decoration: none; transition: color 0.18s;
-    }
+    .nav-social a { color: var(--muted); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: color 0.18s; }
     .nav-social a:hover { color: var(--text); }
     .nav-social svg { width: 18px; height: 18px; display: block; }
 
-    /* ── HAMBURGER ── */
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .nav-hamburger span {
-      display: block; width: 22px; height: 1.5px;
-      background: var(--text); border-radius: 2px;
-      transition: transform 0.25s, opacity 0.25s;
-    }
+    /* HAMBURGER */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* ── MOBILE DRAWER ── */
-    .mobile-menu {
-      display: none; position: fixed;
-      inset: 60px 0 0 0; background: var(--surface);
-      z-index: 99; flex-direction: column;
-      padding: 2rem 1.5rem;
-      border-top: 0.5px solid var(--border);
-      overflow-y: auto;
-    }
+    /* MOBILE DRAWER */
+    .mobile-menu { display: none; position: fixed; inset: 60px 0 0 0; background: var(--surface); z-index: 99; flex-direction: column; padding: 2rem 1.5rem; border-top: 0.5px solid var(--border); overflow-y: auto; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a.mobile-link {
-      font-size: 26px; font-family: 'DM Serif Display', serif;
-      font-weight: 400; color: var(--text); text-decoration: none;
-      padding: 1rem 0; border-bottom: 0.5px solid var(--border);
-    }
-    .mobile-social {
-      display: flex; gap: 20px; flex-wrap: wrap;
-      margin-top: 2rem; padding-top: 1.5rem;
-      border-top: 0.5px solid var(--border);
-    }
-    .mobile-social a {
-      font-size: 13px; font-family: 'DM Sans', sans-serif;
-      color: var(--muted); text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
-      transition: color 0.15s;
-    }
+    .mobile-menu a.mobile-link { font-size: 26px; font-family: 'DM Serif Display', serif; font-weight: 400; color: var(--text); text-decoration: none; padding: 1rem 0; border-bottom: 0.5px solid var(--border); }
+    .mobile-social { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); }
+    .mobile-social a { font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.15s; }
     .mobile-social a:hover { color: var(--text); }
     .mobile-social svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero { padding: 5rem 2rem 3rem; text-align: center; }
-    .hero-eyebrow {
-      font-size: 11px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
-    }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 400; line-height: 1.1;
-      color: var(--text); margin-bottom: 1.25rem;
-    }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 400; line-height: 1.1; color: var(--text); margin-bottom: 1.25rem; }
     .hero h1 em { font-style: italic; color: var(--muted); }
-    .hero p {
-      font-size: 14px; color: var(--muted);
-      max-width: 400px; margin: 0 auto; line-height: 1.7;
-    }
+    .hero p { font-size: 14px; color: var(--muted); max-width: 400px; margin: 0 auto; line-height: 1.7; }
 
-    /* ── FILTER BAR ── */
-    .filter-bar {
-      display: flex; justify-content: center;
-      gap: 8px; flex-wrap: wrap; padding: 2rem 2rem 2.5rem;
-    }
-    .filter-btn {
-      font-family: 'DM Sans', sans-serif; font-size: 12px;
-      font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 7px 18px; border: 0.5px solid var(--border-mid);
-      border-radius: 999px; background: transparent; color: var(--muted);
-      cursor: pointer; transition: all 0.15s;
-    }
+    /* FILTER BAR */
+    .filter-bar { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 2rem 2rem 2.5rem; }
+    .filter-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 18px; border: 0.5px solid var(--border-mid); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s; }
     .filter-btn:hover { border-color: var(--text); color: var(--text); }
     .filter-btn.active { background: var(--text); border-color: var(--text); color: var(--bg); }
 
-    /* ── GALLERY ── */
-    .gallery { columns: 4 200px; column-gap: 10px; padding: 0 1.5rem 4rem; }
+    /* GALLERY */
+    .gallery { padding: 0 1.5rem 4rem; }
+    .masonry-grid {
+      column-count: 4;
+      column-gap: 18px;
+    }
     .gallery-item {
-      break-inside: avoid; margin-bottom: 10px;
-      overflow: hidden; border-radius: 6px;
+      break-inside: avoid;
+      overflow: hidden; border-radius: 8px;
       position: relative; cursor: pointer; background: #e8e5de;
+      margin-bottom: 18px;
+      display: inline-block;
+      width: 100%;
     }
     .gallery-item img { width: 100%; display: block; transition: transform 0.4s ease; }
-    .gallery-item .overlay {
-      position: absolute; inset: 0; background: rgba(0,0,0,0);
-      display: flex; align-items: flex-end; padding: 12px; transition: background 0.3s;
-    }
+    .gallery-item .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); display: flex; align-items: flex-end; padding: 12px; transition: background 0.3s; }
     .gallery-item:hover .overlay { background: rgba(0,0,0,0.2); }
     .gallery-item:hover img { transform: scale(1.04); }
-    .photo-credit {
-      font-size: 10px; color: rgba(255,255,255,0);
-      letter-spacing: 0.04em; transition: color 0.3s;
-    }
+    .photo-credit { font-size: 10px; color: rgba(255,255,255,0); letter-spacing: 0.04em; transition: color 0.3s; }
     .gallery-item:hover .photo-credit { color: rgba(255,255,255,0.85); }
 
-    /* ── SECTIONS ── */
-    .section {
-      padding: 5rem 2rem; border-top: 0.5px solid var(--border);
-      max-width: 700px; margin: 0 auto;
-    }
-    .section-label {
-      font-size: 11px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem;
-    }
-    .section h2 {
-      font-family: 'DM Serif Display', serif; font-size: 2rem;
-      font-weight: 400; margin-bottom: 1.25rem; line-height: 1.2;
-    }
+    /* SECTIONS */
+    .section { padding: 5rem 2rem; border-top: 0.5px solid var(--border); max-width: 700px; margin: 0 auto; }
+    .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .section h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1.25rem; line-height: 1.2; }
     .section p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
 
-    /* ── CONTACTO ── */
+    /* CONTACTO */
     .contact-links { margin-top: 2rem; display: flex; flex-direction: column; gap: 12px; }
-    .contact-link {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 18px; border: 0.5px solid var(--border-mid);
-      border-radius: 8px; text-decoration: none; color: var(--text);
-      font-size: 13px; transition: border-color 0.15s, background 0.15s;
-      background: var(--surface);
-    }
+    .contact-link { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 0.5px solid var(--border-mid); border-radius: 8px; text-decoration: none; color: var(--text); font-size: 13px; transition: border-color 0.15s, background 0.15s; background: var(--surface); }
     .contact-link:hover { border-color: var(--text); background: var(--bg); }
     .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); }
     .contact-link span { color: var(--muted); font-size: 12px; margin-left: auto; }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 0.5px solid var(--border); padding: 2rem;
-      display: flex; align-items: center;
-      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    }
+    /* FOOTER */
+    footer { border-top: 0.5px solid var(--border); padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     footer p { font-size: 12px; color: var(--muted); }
     .footer-social { display: flex; align-items: center; gap: 16px; }
-    .footer-social a {
-      color: var(--muted); display: flex; align-items: center;
-      text-decoration: none; transition: color 0.15s;
-    }
+    .footer-social a { color: var(--muted); display: flex; align-items: center; text-decoration: none; transition: color 0.15s; }
     .footer-social a:hover { color: var(--text); }
     .footer-social svg { width: 16px; height: 16px; }
 
-    /* ── MOBILE ── */
+    /* MOBILE */
     @media (max-width: 640px) {
+      :root { --cols: 2; --gap: 8px; }
       nav { padding: 0 1.25rem; }
       .nav-links, .nav-social { display: none; }
       .nav-hamburger { display: flex; }
-
       .hero { padding: 3rem 1.25rem 2rem; }
       .hero h1 { font-size: 2.4rem; }
-
-      .filter-bar {
-        padding: 1.25rem 1.25rem 1.5rem; gap: 6px;
-        justify-content: flex-start; flex-wrap: nowrap;
-        overflow-x: auto; -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
+      .filter-bar { padding: 1.25rem 1.25rem 1.5rem; gap: 6px; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
       .filter-bar::-webkit-scrollbar { display: none; }
       .filter-btn { flex-shrink: 0; padding: 8px 16px; font-size: 11px; }
-
-      .gallery { columns: 2; column-gap: 8px; padding: 0 1rem 3rem; }
-      .gallery-item { margin-bottom: 8px; border-radius: 4px; }
+      .gallery { padding: 0 1rem 3rem; }
+      .masonry-grid { column-count: 2; column-gap: 12px; }
+      .gallery-item { border-radius: 5px; margin-bottom: 12px; }
       .photo-credit { color: rgba(255,255,255,0.75) !important; font-size: 9px; }
-
       .section { padding: 3rem 1.25rem; }
       .section h2 { font-size: 1.6rem; }
-
       .contact-link { padding: 12px 14px; font-size: 12px; }
       .contact-link span { display: none; }
-
       footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; }
     }
-
     @media (min-width: 641px) and (max-width: 900px) {
       .nav-links { gap: 1.5rem; }
-      .gallery { columns: 3 160px; }
+      .masonry-grid { column-count: 3; }
     }
 
-    /* ── LIGHTBOX ── */
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 500;
-      background: rgba(10,9,8,0.93);
-      align-items: center; justify-content: center; padding: 1.5rem;
-    }
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(10,9,8,0.93); align-items: center; justify-content: center; padding: 1.5rem; }
     .lightbox.open { display: flex; }
-    .lightbox-inner {
-      position: relative; max-width: 90vw; max-height: 90vh;
-      display: flex; flex-direction: column; align-items: center; gap: 10px;
-    }
-    .lightbox-inner img {
-      max-width: 90vw; max-height: 82vh;
-      object-fit: contain; border-radius: 4px; display: block;
-      animation: lb-in 0.18s ease;
-    }
-    @keyframes lb-in {
-      from { opacity: 0; transform: scale(0.96); }
-      to   { opacity: 1; transform: scale(1); }
-    }
+    .lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .lightbox-inner img { max-width: 90vw; max-height: 82vh; object-fit: contain; border-radius: 4px; display: block; animation: lb-in 0.18s ease; }
+    @keyframes lb-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
     .lightbox-caption { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
-    .lightbox-close {
-      position: fixed; top: 1.25rem; right: 1.5rem;
-      background: none; border: none; color: rgba(255,255,255,0.55);
-      cursor: pointer; padding: 4px; line-height: 1; transition: color 0.15s;
-    }
+    .lightbox-close { position: fixed; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,0.55); cursor: pointer; padding: 4px; line-height: 1; transition: color 0.15s; }
     .lightbox-close:hover { color: #fff; }
     .lightbox-close svg { width: 22px; height: 22px; display: block; }
-    .lightbox-nav {
-      position: fixed; top: 50%; transform: translateY(-50%);
-      background: none; border: none; color: rgba(255,255,255,0.45);
-      cursor: pointer; padding: 14px; transition: color 0.15s;
-    }
+    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: none; border: none; color: rgba(255,255,255,0.45); cursor: pointer; padding: 14px; transition: color 0.15s; }
     .lightbox-nav:hover { color: #fff; }
     .lightbox-nav svg { width: 28px; height: 28px; display: block; }
     .lightbox-prev { left: 0.5rem; }
@@ -282,88 +158,61 @@
 </head>
 <body>
 
-  <!-- ══ NAV ══ -->
   <nav>
     <a class="nav-logo" href="#">
-      <!-- Ícono cámara fotográfica -->
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
         <circle cx="12" cy="13" r="4"/>
       </svg>
       Valentina Pinto PH
     </a>
-
     <div class="nav-links">
       <a href="#galeria" class="active">Galería</a>
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#contacto">Contacto</a>
     </div>
-
     <div class="nav-social">
       <a href="https://instagram.com/valentinapintoph" target="_blank" title="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="5"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       </a>
       <a href="https://wa.me/TUNUMERO" target="_blank" title="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
       </a>
       <a href="https://unsplash.com/@valentinapintoph" target="_blank" title="Unsplash">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/></svg>
       </a>
     </div>
-
     <button class="nav-hamburger" id="hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- ══ MOBILE DRAWER ══ -->
   <div class="mobile-menu" id="mobile-menu">
     <a class="mobile-link" href="#galeria" onclick="closeMobileMenu()">Galería</a>
     <a class="mobile-link" href="#sobre-mi" onclick="closeMobileMenu()">Sobre mí</a>
     <a class="mobile-link" href="#contacto" onclick="closeMobileMenu()">Contacto</a>
     <div class="mobile-social">
       <a href="https://instagram.com/valentinapintoph" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <circle cx="12" cy="12" r="5"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         Instagram
       </a>
       <a href="https://wa.me/TUNUMERO" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         WhatsApp
       </a>
       <a href="https://unsplash.com/@valentinapintoph" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/></svg>
         Unsplash
       </a>
     </div>
   </div>
 
-  <!-- ══ HERO ══ -->
   <section class="hero" id="galeria">
     <p class="hero-eyebrow">Portfolio</p>
     <h1>Valentina <em>Pinto</em> PH</h1>
-    <p>Fotografía de retrato, viajes y naturaleza con una mirada sensible y auténtica.
-Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
+    <p>Fotografía de retrato, viajes y naturaleza con una mirada sensible y auténtica. Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
   </section>
 
-  <!-- ══ FILTROS ══ -->
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterGallery('all', this)">Todas</button>
     <button class="filter-btn" onclick="filterGallery('nature', this)">Naturaleza</button>
@@ -372,10 +221,10 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
     <button class="filter-btn" onclick="filterGallery('abstract', this)">Arte / Abstracto</button>
   </div>
 
-  <!-- ══ GALERÍA ══ -->
-  <div class="gallery" id="gallery-grid"></div>
+  <div class="gallery">
+    <div class="masonry-grid" id="gallery-grid"></div>
+  </div>
 
-  <!-- ══ SOBRE MÍ ══ -->
   <section class="section" id="sobre-mi">
     <p class="section-label">Sobre mí</p>
     <h2>Fotografía que<br>cuenta algo</h2>
@@ -387,7 +236,6 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
     <p>Si sentís que esto conecta con vos, es por algo. Podés escribirme y empezamos a crear algo que realmente valga la pena guardar.</p>
   </section>
 
-  <!-- ══ CONTACTO ══ -->
   <section class="section" id="contacto">
     <p class="section-label">Contacto</p>
     <h2>Hablemos</h2>
@@ -395,34 +243,23 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
     <p>Estoy en Palermo, CABA, Argentina.</p>
     <div class="contact-links">
       <a href="https://instagram.com/valentinapintoph" class="contact-link" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <circle cx="12" cy="12" r="5"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         @valentinapintoph
         <span>Instagram →</span>
       </a>
       <a href="https://wa.me/TUNUMERO" class="contact-link" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--muted)">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--muted)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Escribime por WhatsApp
         <span>WhatsApp →</span>
       </a>
       <a href="https://unsplash.com/@valentinapintoph" class="contact-link" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--muted)">
-          <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" style="color: var(--muted)"><path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/></svg>
         Ver portfolio en Unsplash
         <span>Unsplash →</span>
       </a>
     </div>
   </section>
 
-
-  <!-- ══ LIGHTBOX ══ -->
   <div class="lightbox" id="lightbox">
     <div class="lightbox-inner">
       <img id="lb-img" src="" alt="" />
@@ -438,38 +275,27 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </button>
   </div>
-  <!-- ══ FOOTER ══ -->
+
   <footer>
     <p>© 2025 Valentina Pinto PH · Fotos vía <a href="https://unsplash.com" style="color: var(--muted)">Unsplash</a></p>
     <div class="footer-social">
       <a href="https://instagram.com/valentinapintoph" target="_blank" title="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <circle cx="12" cy="12" r="5"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       </a>
       <a href="https://wa.me/TUNUMERO" target="_blank" title="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.534 5.847L.057 23.43a.5.5 0 0 0 .613.613l5.583-1.477A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.502-5.184-1.382l-.372-.214-3.865 1.022 1.022-3.753-.228-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
       </a>
       <a href="https://unsplash.com/@valentinapintoph" target="_blank" title="Unsplash">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/></svg>
       </a>
     </div>
   </footer>
 
   <script>
-    // Fotos con IDs de Unsplash — se cargan directo desde source.unsplash.com
-    // Cada categoría tiene fotos curadas para ese género
     const photos = [
-      // ── NATURALEZA ──
-      { url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80", author: "sergkuzmin", tag: "nature" },
-      { url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80", author: "Ales Krivec", tag: "nature" },
+      // NATURALEZA
+      { url: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=80", author: "Nitish Meena", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", author: "Ales Krivec", tag: "nature" },
       { url: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&q=80", author: "veeterzy", tag: "nature" },
       { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80", author: "Lukasz Szmigiel", tag: "nature" },
       { url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&q=80", author: "Lucas Pezeta", tag: "nature" },
@@ -477,8 +303,15 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
       { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&q=80", author: "Sebastian Unrau", tag: "nature" },
       { url: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=80", author: "Jeremy Bishop", tag: "nature" },
       { url: "https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=600&q=80", author: "Martin Adams", tag: "nature" },
-
-      // ── RETRATOS ──
+      { url: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80", author: "Geran de Klerk", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", author: "Sean Oulashin", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600&q=80", author: "Vincentiu Solomon", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=600&q=80", author: "kazuend", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=600&q=80", author: "William Bout", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80", author: "Hector Falcon", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1490682143684-14369e18dce8?w=600&q=80", author: "Jeremy Perkins", tag: "nature" },
+      { url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80", author: "Ales Krivec", tag: "nature" },
+      // RETRATOS
       { url: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80", author: "Allef Vinicius", tag: "portrait" },
       { url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80", author: "Atikh Bana", tag: "portrait" },
       { url: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=80", author: "Tamara Bellis", tag: "portrait" },
@@ -488,8 +321,15 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
       { url: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=600&q=80", author: "Stefan Stefancik", tag: "portrait" },
       { url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80", author: "Leu Marius", tag: "portrait" },
       { url: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=600&q=80", author: "Elizeu Dias", tag: "portrait" },
-
-      // ── VIAJES ──
+      { url: "https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?w=600&q=80", author: "Nathan Walker", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80", author: "Ben Parker", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80", author: "Oladimeji Odunsi", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?w=600&q=80", author: "Anthony Tran", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=600&q=80", author: "Eugenia Maximova", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1528892952291-009c663ce843?w=600&q=80", author: "Guilherme Stecanella", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1542103749-8ef59b94f47e?w=600&q=80", author: "Roksolana Zasiadko", tag: "portrait" },
+      { url: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=600&q=80", author: "Ayo Ogunseinde", tag: "portrait" },
+      // VIAJES
       { url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80", author: "Simon Migaj", tag: "travel" },
       { url: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=80", author: "Simon Migaj", tag: "travel" },
       { url: "https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=600&q=80", author: "Tom Barrett", tag: "travel" },
@@ -498,17 +338,32 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
       { url: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80", author: "Mesut Kaya", tag: "travel" },
       { url: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=80", author: "Andrea Leopardi", tag: "travel" },
       { url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&q=80", author: "Arto Marttinen", tag: "travel" },
-
-      // ── ARTE / ABSTRACTO ──
+      { url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&q=80", author: "Shifaaz Shamoon", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80", author: "Ferdinand Stohr", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=600&q=80", author: "Willian West", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80", author: "K. Mitch Hodge", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1490131784822-b4626a8ec96a?w=600&q=80", author: "Tomáš Malík", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80", author: "Janis Wolf", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1543158266-0066955047b1?w=600&q=80", author: "Joanna Kosinska", tag: "travel" },
+      { url: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=600&q=80", author: "Balint Szabó", tag: "travel" },
+      // ARTE / ABSTRACTO
       { url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1501472312651-726afe119ff1?w=600&q=80", author: "Gül Işık", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1496715976403-7e36dc43f17b?w=600&q=80", author: "Timur Garifov", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80", author: "Jean-Philippe Delberghe", tag: "abstract" },
-      { url: "https://images.unsplash.com/photo-1552083375-1447ce886485?w=600&q=80", author: "Sven Mieke", tag: "abstract" },
-      { url: "https://images.unsplash.com/photo-1605106702842-01a887a31122?w=600&q=80", author: "Jr Korpa", tag: "abstract" },
+
+      { url: "https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?w=600&q=80", author: "Jr Korpa", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1567359781514-3b964e2b04d6?w=600&q=80", author: "Scott Webb", tag: "abstract" },
       { url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", author: "Birmingham Museums", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=600&q=80", author: "Zaksheuskaya", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=600&q=80", author: "Harpal Singh", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1609743522653-52354461eb27?w=600&q=80", author: "Andrew Neel", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1507908708918-778587c9e563?w=600&q=80", author: "Maik Jonietz", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=600&q=80", author: "Jr Korpa", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1566041510639-8d95a2490bfb?w=600&q=80", author: "Pawel Czerwinski", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=600&q=80", author: "Gradienta", tag: "abstract" },
+      { url: "https://images.unsplash.com/photo-1510519138101-570d1dca3d66?w=600&q=80", author: "Yannis Papanastasopoulos", tag: "abstract" },
     ];
 
     function renderGallery(filter) {
@@ -534,6 +389,7 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
 
     renderGallery('all');
 
+    // ── NAV ──
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
     hamburger.addEventListener('click', () => {
@@ -599,19 +455,15 @@ Creo imágenes que cuentan tu historia. Reservá tu sesión.</p>
       if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + lbItems.length) % lbItems.length; showLbSlide(); }
       if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbItems.length; showLbSlide(); }
     });
-
     let tsX = 0;
     document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.touches[0].clientX; });
     document.getElementById('lightbox').addEventListener('touchend', e => {
       const diff = tsX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
-        lbIndex = diff > 0
-          ? (lbIndex + 1) % lbItems.length
-          : (lbIndex - 1 + lbItems.length) % lbItems.length;
+        lbIndex = diff > 0 ? (lbIndex + 1) % lbItems.length : (lbIndex - 1 + lbItems.length) % lbItems.length;
         showLbSlide();
       }
     });
-
   </script>
 </body>
 </html>
